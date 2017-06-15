@@ -1,0 +1,24 @@
+{
+	"authHost": "block.money",
+	"authEndpoint": "/broadcasting/auth",
+	"clients": [
+		{
+			"appId": "0323b8950b4f6860",
+			"key": "0a9555c7b3caf184fbc5da8021817a9b"
+		}
+	],
+	"database": "redis",
+	"databaseConfig": {
+		"redis": {},
+		"sqlite": {
+			"databasePath": "/database/laravel-echo-server.sqlite"
+		}
+	},
+	"devMode": true,
+	"host": null,
+	"port": "6001",
+	"protocol": "http",
+	"socketio": {},
+	"sslCertPath": "",
+	"sslKeyPath": ""
+}

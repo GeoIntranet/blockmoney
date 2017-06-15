@@ -1,0 +1,35 @@
+.navigationBar{
+  background-color: $bg_main;
+}
+
+.expend{
+  transition: all 0.2s;
+}
+
+.positionBar{
+  -moz-box-shadow: 1px 1px 10px 1px #cfcfcf;
+  -webkit-box-shadow: 1px 1px 10px 1px #cfcfcf;
+  -o-box-shadow: 1px 1px 10px 1px #cfcfcf;
+  box-shadow: 1px 1px 10px 1px #cfcfcf;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=134, Strength=10);
+
+  background-color: white;
+  border:solid 1px #F7F7F9;
+
+  //overflow: auto;
+  min-height: 300px;
+  border-radius: 3px;
+  z-index: $zindex-tooltip;
+  position: absolute;
+  top:51px;
+}
+
+#scroll::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+#scroll::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: lighten($brand-primary,30%);
+}

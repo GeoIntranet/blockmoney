@@ -1,0 +1,21 @@
+
+
+$end:15;
+@for $i from 1 through $end {
+  .pad-#{$i} { padding: 1px * $i !important; }
+
+  .padb-#{$i} { padding-bottom: 1px * $i !important; }
+  .padt-#{$i} { padding-top: 1px * $i !important; }
+
+  .padr-#{$i} { padding-right: 1px * $i !important; }
+  .padl-#{$i} { padding-left: 1px * $i !important; }
+}
+.border_
+{
+  border:solid 1px red;
+}
+
+.b{font-weight: bold;}
+.left { text-align: left; }
+.center { text-align: center; }
+.right { text-align: right; }
