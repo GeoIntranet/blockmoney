@@ -37,9 +37,9 @@
             </div>
         </transition>
 
-        <div class="row" v-for="account in accounts" v-if="hasAccount">
+        <div class="row"  v-if="hasAccount">
             <div class="col">
-                <account :details="account"></account>
+                <account :details="account" v-for="account in accounts " :key="account.id"></account>
             </div>
         </div>
     </div>
@@ -93,13 +93,12 @@
 
         },
         mounted() {
-            Event.$on('removeAccount',(id)=>{
-                this.accountData.splice(this.getIndex(id),1);
+            Event.$on('removeAccount',(data)=>{
+                this.accountData.splice(this.getIndex(data.id),1);
             })
 
             Event.$on('editAccount',(data)=>{
                 let id = this.getIndex(data.id);
-                console.log(data);
                 this.accountData[id].nom = data.nom;
                 this.accountData[id].description = data.description;
             })

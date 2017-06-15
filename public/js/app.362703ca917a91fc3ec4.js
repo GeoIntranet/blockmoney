@@ -1697,8 +1697,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         },
         deleteAccount: function deleteAccount(id) {
             axios.delete('/home/account/' + this.account.id);
+
             Event.$emit('removeAccount', {
-                id: id
+                id: this.account.id
             });
         }
     }
@@ -1966,13 +1967,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     mounted: function mounted() {
         var _this2 = this;
 
-        Event.$on('removeAccount', function (id) {
-            _this2.accountData.splice(_this2.getIndex(id), 1);
+        Event.$on('removeAccount', function (data) {
+            _this2.accountData.splice(_this2.getIndex(data.id), 1);
         });
 
         Event.$on('editAccount', function (data) {
             var id = _this2.getIndex(data.id);
-            console.log(data);
             _this2.accountData[id].nom = data.nom;
             _this2.accountData[id].description = data.description;
         });
@@ -2418,6 +2418,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34613,17 +34618,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Ajouté")])])])])])])]) : _vm._e()]), _vm._v(" "), _vm._l((_vm.accounts), function(account) {
-    return (_vm.hasAccount) ? _c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col"
-    }, [_c('account', {
+  }, [_vm._v("Ajouté")])])])])])])]) : _vm._e()]), _vm._v(" "), (_vm.hasAccount) ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col"
+  }, _vm._l((_vm.accounts), function(account) {
+    return _c('account', {
+      key: account.id,
       attrs: {
         "details": account
       }
-    })], 1)]) : _vm._e()
-  })], 2)
+    })
+  }))]) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -34904,7 +34910,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1) : _vm._e(), _vm._v(" "), (_vm.data.module === 999) ? _c('div', {
     staticClass: "row"
-  }, [_c('h6', [_vm._v("Erreur lors de la recherche")])]) : _vm._e()])]) : _vm._e()])])])])])
+  }, [_c('h6', [_vm._v("Erreur lors de la recherche")])]) : _vm._e()])]) : _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_vm._v("\n                            accueil de recherche\n                        ")])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
     staticClass: "navbar-toggler navbar-toggler-right",

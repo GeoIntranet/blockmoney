@@ -54,6 +54,11 @@
                             </div>
 
                         </div>
+                        <div class="row" v-else="">
+                            <div class="col">
+                                accueil de recherche
+                            </div>
+                        </div>
                     </div>
                     <!--FIN Zone autocomplétion-->
 
