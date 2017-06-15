@@ -33,12 +33,7 @@ class UserController extends Controller
             ->first()
         ;
 
-        // check recursive prelevement
-
-        // check categorie user
-
-        //dump($user);
-        return view('user.settings');
+        return view('user.settings',compact(['user']));
     }
 
     public function logout()

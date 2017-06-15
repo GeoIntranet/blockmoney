@@ -48,14 +48,13 @@ User Setting
                     <div class="row">
                         <div class="col">
                             @component('component.card.card')
-                                @slot('header') {{auth()->user()->name}} configuration de ton compte utilisateur @endslot
+                                @slot('header')
+                                    <i class="fa fa-send mr-2"> </i> Bienvenue <b>{{auth()->user()->name}}</b> !  @endslot
                                 @slot('title')
-                                   Gestion des comptes
+                                   <i class="fa fa-cog mr-2"> </i>Section configuration des comptes
                                 @endslot
                                 @slot('body')
-                                        @php $accounts = \App\Account::where('user_id',auth()->id())->get(); @endphp
-                                        <accounts :accounts="{{$accounts}}"></accounts>
-
+                                        <accounts :accounts="{{$user->account}}"></accounts>
                                 @endslot
                                 @slot('footer') Ecrit par <u>Geoffrey Valero</u> dans la section <a href="">configuration</a>@endslot
                             @endcomponent

@@ -80,7 +80,7 @@
             },
             deleteAccount(id){
                 axios.delete('/home/account/'+this.account.id);
-               
+
                 Event.$emit('removeAccount',{
                     id:this.account.id
                 })
