@@ -1917,6 +1917,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -34505,10 +34519,17 @@ module.exports = function normalizeComponent (
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col"
-  }, [_c('h5', [_vm._v("Account "), _c('a', {
-    attrs: {
-      "href": ""
-    },
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col border"
+  }, [_c('span', {
+    staticClass: " align-middle pb-1",
+    staticStyle: {
+      "font-size": "2em"
+    }
+  }, [_vm._v("\n                Account\n            ")]), _vm._v(" "), _c('span', {
+    staticClass: " align-middle fa-stack fa-lg",
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -34516,8 +34537,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "fa fa-plus"
-  })])]), _vm._v(" "), _c('transition', {
+    staticClass: "fa fa-circle fa-stack-2x"
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-plus fa-stack-1x fa-inverse"
+  })])])]), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }

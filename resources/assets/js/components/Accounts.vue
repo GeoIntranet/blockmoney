@@ -1,6 +1,20 @@
 <template>
     <div class="col">
-        <h5>Account <a href="" @click.prevent="showAccountForm"><i class="fa fa-plus"> </i></a></h5>
+        <div class="row">
+            <div class="col border">
+
+                <span class=" align-middle pb-1" style="font-size: 2em">
+                    Account
+                </span>
+
+                <span class=" align-middle fa-stack fa-lg" @click.prevent="showAccountForm">
+                   <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                </span>
+            </div>
+        </div>
+
+
         <transition name="fade">
             <div class="row" v-if="accountForm">
                 <div class="col">
