@@ -31,6 +31,8 @@ class SearchController extends Controller
             $result['data'] = '';
         }
 
-        return [$result];
+        return $result;
     }
+
+
 }

@@ -27,6 +27,9 @@ Route::group(['middleware' =>'auth'], function () {
         Route::get('configuration/calendar/session', 'CalendarController@getSession');
         Route::post('configuration/calendar/set/session', 'CalendarController@setSession');
 
+    //  gestion de la recherche autocomplete
+        Route::post('/search', 'SearchController@handle');
+    //-------------------------------------------------------------
 });
 
 
@@ -57,9 +60,7 @@ Route::group(['middleware' =>'app'], function () {
         Route::resource('home/move/credit', 'CreditController');
     //-------------------------------------------------------------
 
-    //  gestion de la recherche autocomplete
-    Route::get('/search', 'SearchController@handle');
-    //-------------------------------------------------------------
+
 
 });
 

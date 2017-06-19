@@ -42,9 +42,12 @@ User Setting
 
                 </div>
 
-
-
                 <div class="col-md-12 col-lg-8 col-sm-12">
+                    {{print_r($status)}}
+                    {{var_dump($status)}}
+                    <active_account :state="{{ +$status }}"></active_account>
+                    {{--<not_active_account :status="{{$status}} "></not_active_account>--}}
+
                     <div class="row">
                         <div class="col">
                             @component('component.card.card')

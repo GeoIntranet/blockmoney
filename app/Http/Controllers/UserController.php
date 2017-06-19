@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Lib\User\UserAccountSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /**
+     * @var UserAccountSetting
+     */
+    private $setting;
 
     /**
      * UserController constructor.
      */
-    public function __construct()
+    public function __construct(UserAccountSetting $setting)
     {
 
+        $this->setting = $setting;
     }
 
     public function index()
@@ -28,12 +34,12 @@ class UserController extends Controller
             ->user()
             ->with([
                 'account',
-                'prelevement',
             ])
             ->first()
         ;
+        $status = $this->setting->check();
 
-        return view('user.settings',compact(['user']));
+        return view('user.settings',compact(['user','status']));
     }
 
     public function logout()

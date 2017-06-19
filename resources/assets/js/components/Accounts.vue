@@ -1,16 +1,16 @@
 <template>
-    <div class="col">
+    <div>
         <div class="row">
-            <div class="col border">
-
-                <span class=" align-middle pb-1" style="font-size: 2em">
-                    Account
-                </span>
-
-                <span class=" align-middle fa-stack fa-lg" @click.prevent="showAccountForm">
+            <div class="col  pl-2">
+                <span class=" align-middle fa-stack " @click.prevent="showAccountForm" style="margin-top: 4px;">
                    <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
                 </span>
+                <span class=" align-middle pb-1 " style="font-size: 1.8em">
+                    Compte
+                </span>
+
+
             </div>
         </div>
 
@@ -34,7 +34,7 @@
                             <div class="form-group row">
                                 <label for="accountValue" class="col-sm-2 col-form-label">Compte</label>
                                 <div class="col-sm-10">
-                                    <input v-model="form.nom" name="nom" type="text" class="form-control"
+                                    <input v-model="form.nom" name="nom" type="number" class="form-control"
                                            id="accountValue" placeholder="0845213256 ...">
                                     <div class="form-control-feedback text-danger" v-if="form.errors.has('nom')"
                                          v-text="form.errors.get('nom')"></div>
@@ -56,6 +56,7 @@
                 <account :details="account" v-for="account in accounts " :key="account.id"></account>
             </div>
         </div>
+
     </div>
 
 
@@ -88,12 +89,12 @@
             addAccount(){
                 this.form.submit('post','/home/account')
                     .then(data => {
-
                         this.accountData.push({
                             id : data.id,
                             description : this.form.description,
                             nom : this.form.nom,
                         })
+                        Event.$emit('userAccountActive',[data.userAccountActive]);
 
                         this.form.reset();
                         this.accountForm = false;
@@ -181,7 +182,6 @@
                 axios[requestType]( url, this.data() )
                     .then(response => {
                         this.onSucess(response.data);
-
                         resolve(response.data);
                     })
                     .catch(error => {

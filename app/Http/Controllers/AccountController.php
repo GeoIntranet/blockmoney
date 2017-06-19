@@ -2,11 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
+use App\Http\Controllers\Lib\User\UserAccountSetting;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Account;
 
 class AccountController extends Controller
 {
+    /**
+     * @var UserAccountSetting
+     */
+    private $userSetting;
+
+    /**
+     * AccountController constructor.
+     */
+    public function __construct(UserAccountSetting $userSetting)
+    {
+
+        $this->userSetting = $userSetting;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,16 +56,20 @@ class AccountController extends Controller
             'description' => 'required | min:3 | max:20',
         ]);
 
-        $account = Account::forceCreate([
+        $account = Account::Create([
             'nom' => request('nom'),
             'description' => request('description'),
             'user_id' => auth()->id(),
+            'active' => 1,
         ]);
+
+        $status = $this->userSetting->check();
 
 
         return [
             'message' => 'account created',
             'id' => $account->id,
+            'userAccountActive' => $status,
         ];
     }
 
@@ -95,9 +115,10 @@ class AccountController extends Controller
             'nom' => $request->input('nom'),
             'description' => $request->input('description'),
         ]);
-
+        $status = $this->userSetting->check();
         return [
             'message' => 'account edité',
+            'userAccountActive' => $status,
         ];
     }
 
@@ -110,7 +131,19 @@ class AccountController extends Controller
     public function destroy($id)
     {
         $account = Account::find($id);
-        if( $account->user_id == auth()->id() ) $account->delete();
-        return ['deleted'];
+
+        if( $account->user_id == auth()->id() )
+            $account->update(['active' => 0])
+            ;
+
+        $status = $this->userSetting->check();
+
+        return [
+            'status' => 'deleted',
+            'userAccountActive' => $status
+        ];
     }
+
+
+
 }

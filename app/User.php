@@ -52,9 +52,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Activity');
     }
 
-    public function account()
+    public function Accountdisabled()
     {
-        return $this->hasMany(Account::class);
+        return $this->hasMany(Account::class)->notActive();
+
     }
 
+    public function Account()
+    {
+        return $this->hasMany(Account::class)->active();
+    }
 }

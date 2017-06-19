@@ -128,17 +128,16 @@
             },
             autocomplete(){
                 if(this.search !== ''){
-                    axios.get('/search', {
-                        params: {
-                            search: this.search
-                        }
+
+                    axios.post('/search', {
+                        search: this.search,
                     })
-                    .then((response) => {
+                    .then( (response) => {
                         this.hasData = true;
                         this.errorSearch ='';
-                        this.data = response.data[0];
+                        this.data = response.data;
                     })
-                    .catch((response) => {
+                    .catch( (response) => {
                         this.hasData = true;
                         this.errorSearch = 'il y\'a un probleme lors de la recherche ';
                     });

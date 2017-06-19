@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
 
-    protected $fillable=['nom','description','user_id'];
+    protected $fillable=['nom','description','user_id','active'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -24,4 +24,16 @@ class Account extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active',1);
+    }
+
+    public function scopeNotActive($query)
+    {
+        return $query->where('active',0);
+    }
+
+
 }

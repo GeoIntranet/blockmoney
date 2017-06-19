@@ -36,6 +36,8 @@ Vue.component('accounts', require('./components/Accounts.vue'));
 Vue.component('account', require('./components/Account.vue'));
 Vue.component('navigation', require('./components/Navigation.vue'));
 Vue.component('compteSearch', require('./components/CompteSearch.vue'));
+Vue.component('active_account', require('./components/ActiveAccount.vue'));
+Vue.component('not_active_account', require('./components/NotActiveAccount.vue'));
 Vue.component('transactionSearch', require('./components/TransactionSearch.vue'));
 
 window.Event = new Vue();
