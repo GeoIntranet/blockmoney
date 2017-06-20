@@ -1696,10 +1696,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             });
         },
         deleteAccount: function deleteAccount(id) {
-            axios.delete('/home/account/' + this.account.id);
+            var _this2 = this;
 
-            Event.$emit('removeAccount', {
-                id: this.account.id
+            axios.delete('/home/account/' + this.account.id).then(function (response) {
+
+                Event.$emit('removeAccount', {
+                    id: _this2.account.id,
+                    status: response.data.userAccountActive
+                });
             });
         }
     }
@@ -1782,15 +1786,15 @@ var Form = function () {
     }, {
         key: 'submit',
         value: function submit(requestType, url) {
-            var _this2 = this;
+            var _this3 = this;
 
             return new Promise(function (resolve, reject) {
-                axios[requestType](url, _this2.data()).then(function (response) {
-                    _this2.onSucess(response.data);
+                axios[requestType](url, _this3.data()).then(function (response) {
+                    _this3.onSucess(response.data);
 
                     resolve(response.data);
                 }).catch(function (error) {
-                    _this2.onFail(error.response.data);
+                    _this3.onFail(error.response.data);
 
                     reject(error.response.data);
                 });
@@ -1965,9 +1969,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     description: _this.form.description,
                     nom: _this.form.nom
                 });
-                Event.$emit('userAccountActive', [data.userAccountActive]);
 
                 _this.form.reset();
+                //Event.$emit('userAccountActive',data.userAccountActive);
                 _this.accountForm = false;
             }).catch(function (error) {
                 return console.log(error);
@@ -2112,29 +2116,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            show: false,
             status: false
         };
     },
 
+    // props STATE = bool = false => 0 | true => 1 ---------------------
     props: {
         state: {
             number: Boolean
         }
     },
     computed: {
-        isActif: function isActif() {
-            return this.status;
+        isShow: function isShow() {
+            return this.show;
+        }
+    },
+    methods: {
+        close: function close() {
+            this.show = false;
         }
     },
     mounted: function mounted() {
         var _this = this;
 
+        this.status = this.state === 1 ? true : false;
+
         Event.$on('userAccountActive', function (status) {
+
+            if (_this.status === false && status === true) {
+                _this.show = true;
+            }
             _this.status = status;
+        });
+
+        Event.$on('removeAccount', function (data) {
+            _this.status = data.status;
+            if (data.status === false) _this.show = false;
         });
     }
 });
@@ -2641,11 +2666,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['status'],
+    data: function data() {
+        return {
+            status: false,
+            show: false
+        };
+    },
+
+    props: {
+        state: {
+            number: Boolean
+        }
+    },
+    computed: {
+        isShow: function isShow() {
+            return this.show;
+        }
+    },
+    methods: {
+        close: function close() {
+            this.show = false;
+        }
+    },
     mounted: function mounted() {
-        console.log("this.moment().format()");
+        var _this = this;
+
+        this.status = this.state === 0 ? true : false;
+        this.show = this.status;
+
+        Event.$on('userAccountActive', function (status) {
+            _this.show = false;
+            _this.status = !_this.show;
+        });
+
+        Event.$on('removeAccount', function (data) {
+            _this.status = data.status;
+            _this.show = data.status === false ? true : false;
+        });
     }
 });
 
@@ -2717,6 +2777,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.session = response.data.session;
             });
         }
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user_state.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log("this.moment().format()");
     }
 });
 
@@ -34765,14 +34845,14 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return (_vm.isShow) ? _c('div', {
     staticClass: "alert alert-danger",
     attrs: {
       "role": "alert"
     }
-  }, [_c('button', {
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1)]) : _vm._e()
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",
@@ -34783,9 +34863,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  }, [_vm._v("×")])]), _vm._v(" "), _c('h3', [_c('i', {
+  }, [_vm._v("×")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('h3', [_c('i', {
     staticClass: "fa fa-star mr-2"
-  }), _c('strong', [_vm._v(" Argh !")]), _vm._v(" Encore un petit effort a faire et ton compte sera actif !")])])
+  }), _c('strong', [_vm._v(" Argh !")]), _vm._v("\n        Encore un petit effort a faire et ton compte sera actif !")])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -34867,30 +34949,33 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.isActif) ? _c('div', {
+  return _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.isShow) ? _c('div', {
     staticClass: "alert alert-warning",
     attrs: {
       "role": "alert"
     }
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1)]) : _vm._e()
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
+  }, [_c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",
       "data-dismiss": "alert",
       "aria-label": "Close"
+    },
+    on: {
+      "click": _vm.close
     }
   }, [_c('span', {
     attrs: {
       "aria-hidden": "true"
     }
-  }, [_vm._v("×")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('h3', [_c('i', {
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h3', [_c('i', {
     staticClass: "fa fa-star mr-2"
-  }), _c('strong', [_vm._v(" Bien joué !")]), _vm._v(" Ton compte est "), _c('b', [_vm._v("actif")]), _vm._v(" !")])
-}]}
+  }), _c('strong', [_vm._v(" Bien joué !")]), _vm._v(" Ton compte est "), _c('b', [_vm._v("actif")]), _vm._v(" !")])]) : _vm._e()])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -34990,6 +35075,26 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-a93aca36", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-bc145938\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/user_state.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('i', {
+    staticClass: "fa fa-square text-danger"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-bc145938", module.exports)
   }
 }
 
@@ -35600,7 +35705,7 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.3.4
+ * Vue.js v2.3.3
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -40029,7 +40134,7 @@ Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   }
 });
 
-Vue$3.version = '2.3.4';
+Vue$3.version = '2.3.3';
 
 /*  */
 
@@ -40520,7 +40625,6 @@ function createPatchFunction (backend) {
   function initComponent (vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
       insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
-      vnode.data.pendingInsert = null;
     }
     vnode.elm = vnode.componentInstance.$el;
     if (isPatchable(vnode)) {
@@ -45394,6 +45498,7 @@ Vue.component('compteSearch', __webpack_require__("./resources/assets/js/compone
 Vue.component('active_account', __webpack_require__("./resources/assets/js/components/ActiveAccount.vue"));
 Vue.component('not_active_account', __webpack_require__("./resources/assets/js/components/NotActiveAccount.vue"));
 Vue.component('transactionSearch', __webpack_require__("./resources/assets/js/components/TransactionSearch.vue"));
+Vue.component('user_state', __webpack_require__("./resources/assets/js/components/user_state.vue"));
 
 window.Event = new Vue();
 
@@ -45788,6 +45893,41 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-3ddfa5fc", Component.options)
   } else {
     hotAPI.reload("data-v-3ddfa5fc", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/user_state.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user_state.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-bc145938\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/user_state.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\blockmoney\\resources\\assets\\js\\components\\user_state.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] user_state.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-bc145938", Component.options)
+  } else {
+    hotAPI.reload("data-v-bc145938", Component.options)
   }
 })()}
 

@@ -94,9 +94,9 @@
                             description : this.form.description,
                             nom : this.form.nom,
                         })
-                        Event.$emit('userAccountActive',[data.userAccountActive]);
 
                         this.form.reset();
+                        //Event.$emit('userAccountActive',data.userAccountActive);
                         this.accountForm = false;
 
                     })

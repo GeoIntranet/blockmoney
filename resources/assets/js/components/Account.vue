@@ -79,11 +79,17 @@
                     .catch(error => console.log(error));
             },
             deleteAccount(id){
-                axios.delete('/home/account/'+this.account.id);
+                axios.delete('/home/account/'+this.account.id)
+                    .then(  (response) => {
 
-                Event.$emit('removeAccount',{
-                    id:this.account.id
-                })
+                        Event.$emit('removeAccount',{
+                            id:this.account.id,
+                            status :response.data.userAccountActive
+                        })
+
+                    });
+
+
             },
         }
     }
