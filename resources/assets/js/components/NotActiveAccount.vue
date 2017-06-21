@@ -36,7 +36,7 @@
             this.status = this.state === 0 ? true : false;
             this.show = this.status;
 
-            Event.$on('userAccountActive', (status) => {
+            Event.$on('isActiveUser', (status) => {
                 this.show = false;
                 this.status = ! this.show;
             });

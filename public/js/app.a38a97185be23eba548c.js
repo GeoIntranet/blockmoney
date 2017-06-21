@@ -1942,6 +1942,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     data: function data() {
         return {
             accountData: this.accounts,
+            accountStatus: false,
             form: new Form({
                 description: '',
                 nom: ''
@@ -1964,18 +1965,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             var _this = this;
 
             this.form.submit('post', '/home/account').then(function (data) {
+                _this.accountStatus = data.userAccountActive;
                 _this.accountData.push({
                     id: data.id,
                     description: _this.form.description,
                     nom: _this.form.nom
                 });
-
                 _this.form.reset();
-                //Event.$emit('userAccountActive',data.userAccountActive);
                 _this.accountForm = false;
             }).catch(function (error) {
                 return console.log(error);
             });
+
+            Event.$emit('isActiveUser', this.accountStatus);
         },
         getIndex: function getIndex(id) {
             return this.accountData.findIndex(function (el) {
@@ -2149,7 +2151,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.status = this.state === 1 ? true : false;
 
-        Event.$on('userAccountActive', function (status) {
+        Event.$on('isActiveUser', function (status) {
 
             if (_this.status === false && status === true) {
                 _this.show = true;
@@ -2697,7 +2699,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.status = this.state === 0 ? true : false;
         this.show = this.status;
 
-        Event.$on('userAccountActive', function (status) {
+        Event.$on('isActiveUser', function (status) {
             _this.show = false;
             _this.status = !_this.show;
         });
