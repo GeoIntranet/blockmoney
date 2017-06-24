@@ -68,6 +68,7 @@
         data(){
             return {
                 accountData: this.accounts,
+                accountStatus :false,
                 form : new Form({
                     description:'',
                     nom:'',
@@ -89,18 +90,21 @@
             addAccount(){
                 this.form.submit('post','/home/account')
                     .then(data => {
+                        this.accountStatus = data.userAccountActive;
                         this.accountData.push({
                             id : data.id,
                             description : this.form.description,
                             nom : this.form.nom,
                         })
-                        Event.$emit('userAccountActive',[data.userAccountActive]);
-
                         this.form.reset();
                         this.accountForm = false;
 
+
+
                     })
                     .catch(error => console.log(error));
+
+                Event.$emit('isActiveUser',this.accountStatus);
             },
             getIndex(id){
                 return this.accountData.findIndex( (el) => el.id === id );

@@ -43,23 +43,34 @@ User Setting
                 </div>
 
                 <div class="col-md-12 col-lg-8 col-sm-12">
-                    {{print_r($status)}}
-                    {{var_dump($status)}}
                     <active_account :state="{{ +$status }}"></active_account>
-                    {{--<not_active_account :status="{{$status}} "></not_active_account>--}}
+                    <not_active_account :state="{{  +$status}} "></not_active_account>
 
                     <div class="row">
                         <div class="col">
                             @component('component.card.card')
                                 @slot('header')
-                                    <i class="fa fa-send mr-2"> </i> Bienvenue <b>{{auth()->user()->name}}</b> !  @endslot
+                                    <div class="row">
+                                        <div class="col"><i class="fa fa-send mr-2"> </i> Bienvenue <b>{{auth()->user()->name}}</b> !  </div>
+                                        <div class="col-1 right">
+                                            <user_state></user_state>
+                                        </div>
+                                    </div>
+                                @endslot
+
                                 @slot('title')
                                    <i class="fa fa-cog mr-2"> </i>Section configuration des comptes
                                 @endslot
+
                                 @slot('body')
+                                        <p>Les comptes , sont la representation virtuelle de tes comptes banquaire.
+                                            Tu pourra réaliser différentes opérations entre ces comptes.
+                                        </p>
                                         <accounts :accounts="{{$user->account}}"></accounts>
                                 @endslot
+
                                 @slot('footer') Ecrit par <u>Geoffrey Valero</u> dans la section <a href="">configuration</a>@endslot
+
                             @endcomponent
                         </div>
                     </div>
