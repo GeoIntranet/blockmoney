@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Account;
 
+/**
+ * Class AccountController
+ * @package App\Http\Controllers
+ */
 class AccountController extends Controller
 {
     /**
