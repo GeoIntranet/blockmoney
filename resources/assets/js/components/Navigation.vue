@@ -1,7 +1,10 @@
 <template>
 
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+                class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="#">test</a>
@@ -20,8 +23,14 @@
                     <form :class="isActive" >
                         <input
                                 autocomplete="off" name="search" v-model="search"
-                                @click="inputfocus" @keyup.esc="closeSearch" @focus="inputfocus"  @blur="inputOutfocus"  @keyup.delete="emptySearch" @keyup="autocomplete"
-                                class="form-control col-12 " type="text" placeholder="Search">
+                                @click="inputfocus"
+                                @keyup.esc="closeSearch"
+                                @focus="inputfocus"
+                                @blur="inputOutfocus"
+                                @keyup.delete="emptySearch"
+                                @keyup="autocomplete"
+                                class="form-control col-12 "
+                                type="text" placeholder="Search">
                     </form>
                     <!--FIN Zone de recherche-->
 

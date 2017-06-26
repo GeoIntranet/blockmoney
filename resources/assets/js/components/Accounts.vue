@@ -24,7 +24,7 @@
                                 <label for="accountName" class="col-sm-2 col-form-label">Nom du compte</label>
                                 <div class="col-sm-10">
 
-                                    <input v-model="form.description" name="description" id="accountName" type="text"
+                                    <input v-model="form.description" name="description" id="accountName" type="text"  autocomplete="off"
                                            class="form-control" placeholder="Crédit agricole ... " autofocus>
                                     <div class="form-control-feedback text-danger" v-if="form.errors.has('description')"
                                          v-text="form.errors.get('description')"></div>
@@ -34,7 +34,7 @@
                             <div class="form-group row">
                                 <label for="accountValue" class="col-sm-2 col-form-label">Compte</label>
                                 <div class="col-sm-10">
-                                    <input v-model="form.nom" name="nom" type="number" class="form-control"
+                                    <input v-model="form.nom" name="nom" type="number" class="form-control"  autocomplete="off"
                                            id="accountValue" placeholder="0845213256 ...">
                                     <div class="form-control-feedback text-danger" v-if="form.errors.has('nom')"
                                          v-text="form.errors.get('nom')"></div>

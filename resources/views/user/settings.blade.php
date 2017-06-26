@@ -43,8 +43,8 @@ User Setting
                 </div>
 
                 <div class="col-md-12 col-lg-8 col-sm-12">
-                    <active_account :state="{{ +$status }}"></active_account>
-                    <not_active_account :state="{{  +$status}} "></not_active_account>
+
+                    <state_account :state="{{+$status}}"></state_account>
 
                     <div class="row">
                         <div class="col">
