@@ -2,7 +2,12 @@
     <div>
         <div class="row">
             <div class="col"><i class="fa fa-arrow-right mr-2"> </i>
-                <a class="text-gray-dark" href=""> Virement </a>
+                <a class="text-gray-dark" href="" @click.prevent="showFormAddVirement"> Virement </a>
+            </div>
+        </div>
+        <div class="row" v-if="showFormVirement == true">
+            <div class="col">
+                formulaire ajout virement
             </div>
         </div>
 
@@ -22,9 +27,15 @@
         data(){
             return{
                 data:{},
+                showFormVirement:false,
             }
         },
         props:['virement'],
+        methods:{
+            showFormAddVirement(){
+                this.showFormVirement = ! this.showFormVirement;
+            },
+        },
         mounted() {
             this.data = this.virement;
         }
