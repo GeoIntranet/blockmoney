@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Lib\User\UserAccountSetting;
+use App\Recursive;
+use App\Soldes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Account;
@@ -83,11 +85,29 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Account $account)
     {
-        return [
-            'account' => Account::find($id)
-        ];
+        $user = auth()->id();
+
+        $solde =
+            Soldes::where('user_id', $user)
+                ->where('account_id', $account->id)
+                ->latest()
+                ->get()
+        ;
+        $recursives =
+            Recursive::where('user_id', $user)
+                ->where('account_id', $account->id)
+                ->where('active', 1)
+                ->get()
+        ;
+
+        return view('account.edit',[
+            'account' => $account,
+            'solde' => $solde,
+            'recursives' => $recursives,
+        ]);
+
     }
 
     /**

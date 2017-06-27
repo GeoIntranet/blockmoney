@@ -41,6 +41,9 @@ Vue.component('not_active_account', require('./components/NotActiveAccount.vue')
 Vue.component('state_account', require('./components/StateAccount.vue'));
 Vue.component('transactionSearch', require('./components/TransactionSearch.vue'));
 Vue.component('user_state', require('./components/user_state.vue'));
+Vue.component('list_virement', require('./components/ListVirement.vue'));
+Vue.component('list_prelevement', require('./components/ListPrelevement.vue'));
+Vue.component('general_account', require('./components/GeneralAccount.vue'));
 
 window.Event = new Vue();
 

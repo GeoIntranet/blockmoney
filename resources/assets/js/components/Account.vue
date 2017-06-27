@@ -6,9 +6,7 @@
         <a href=""  @click.prevent="showAccount()" class="mr-2">
             <i class="fa fa-pencil" > </i>
         </a>
-        <a href=""  @click.prevent="showDetails()" class="mr-2">
-            <i class="fa fa-plus"> </i>
-        </a>
+
         {{ account.description }} - <b> {{ account.nom }} </b>
 
         <transition name="fade">
@@ -22,17 +20,9 @@
                 <label class="mr-sm-2" for="accountValue">Compte</label>
                 <input v-model="form.nom" type="text" id="accountValue" class="form-control mb-2 mr-sm-2 mb-sm-0">
                 <div class="form-control-feedback text-danger" v-if="form.errors.has('nom')" v-text="form.errors.get('nom')"></div>
-                <button type="submit" class="btn btn-primary">Edit</button>
-            </form>
-            <form action="" v-if="showDetailsAccount">
-                <div class="form-group row">
-                    <label for="solde" class="col-2 col-form-label">
-                        Solde
-                        <input id="solde" type="number" placeholder="1250,78 e" class=" form-control mx-1">
-                    </label>
+                <button type="submit" class="btn btn-primary mr-2">Edit</button>
 
-
-                </div>
+                <a class="btn btn-primary" :href="getRef()" role="button"><i class="fa fa-plus-circle mr-1"> </i>Plus d'option</a>
 
             </form>
         </transition>
@@ -58,6 +48,9 @@
 
         },
         methods:{
+            getRef() {
+              return '/home/account/'+this.account.id;
+            },
             showAccount(){
               this.showEditAccount = ! this.showEditAccount;
             },

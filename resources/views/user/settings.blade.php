@@ -12,8 +12,7 @@ User Setting
 @endsection
 
 @section('content')
-    <br>
-    <div class="row ">
+    <div class="row mb-4">
         <div class="col">
             <div class="row pad-10 ">
                 <div class="col-md-12 col-lg-4  col-sm-12">
@@ -79,8 +78,7 @@ User Setting
             </div>
         </div>
     </div>
-    <br>
-    <br>
+
 
 @endsection
 
