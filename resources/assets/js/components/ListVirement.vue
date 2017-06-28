@@ -7,7 +7,20 @@
         </div>
         <div class="row" v-if="showFormVirement == true">
             <div class="col">
-                formulaire ajout virement
+                <form action="">
+                    <div class="form-group">
+                        <label for="exampleSelect1">Catégorie</label>
+                        <select class="form-control fontawesome-select" id="exampleSelect1">
+                            <option value="icon-home">&#xf015; &nbsp; &nbsp;  Travail</option>
+                            <option value="icon-road">&#xf018; &nbsp; &nbsp; rente appartement</option>
+                            <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
+                            <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
+                            <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
+                        </select>
+                    </div>
+
+
+                </form>
             </div>
         </div>
 
