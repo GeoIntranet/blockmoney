@@ -8,15 +8,26 @@
         <div class="row" v-if="showFormVirement == true">
             <div class="col">
                 <form action="">
-                    <div class="form-group">
-                        <label for="exampleSelect1">Catégorie</label>
-                        <select class="form-control fontawesome-select" id="exampleSelect1">
+                    <div class="form-inline ">
+
+                        <label class="mr-4" for="exampleSelect1">Catégorie</label>
+                        <select class="form-control fontawesome-select  mr-3" id="exampleSelect1">
                             <option value="icon-home">&#xf015; &nbsp; &nbsp;  Travail</option>
                             <option value="icon-road">&#xf018; &nbsp; &nbsp; rente appartement</option>
                             <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
                             <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
                             <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
                         </select>
+
+                        <label class="mr-4" for="titre">Nom</label>
+                        <input type="text" class="form-control mr-4" id="titre">
+
+                        <label class="mr-4" for="somme">Valeur</label>
+                        <input type="number" class="form-control mr-4" id="somme">
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-primary right ">Ajouté</button>
+                        </div>
+
                     </div>
 
 
