@@ -9,11 +9,14 @@
             <div class="col">
                 <form action="/home/recursives" method="post">
                     <input type="hidden" name="account" :value="account.id">
+                    <input type="hidden" name="account" :value="account.id">
+
                     <input type='hidden' name='_token' :value='token'>
+
                     <div class="form-group row ml-3">
 
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="form-group">
+                        <div class="col-lg-4 col-md-6 col-sm-6 ">
+                            <div class="form-group fd fdrt">
                                 <label for="exampleSelect1">Catégorie</label>
                                 <select class="form-control fontawesome-select" id="exampleSelect1" name="categorie">
                                     <option value="icon-home">&#xf015; &nbsp; &nbsp;  Travail</option>
@@ -25,7 +28,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-md-3 col-sm-3">
+                        <div class="col-lg-4 col-md-3 col-sm-3 gdgfdg">
                             <div class="form-group">
                                 <label class="mr-2" for="titre">Nom</label>
                                 <input type="text" class="form-control " id="titre" name="nom">
