@@ -52,6 +52,10 @@ Route::group(['middleware' =>'app'], function () {
         Route::resource('home/account', 'AccountController');
     //-------------------------------------------------------------
 
+    // section gestion d'un compte banquaire
+    Route::resource('home/recursives', 'RecursivesController');
+    //-------------------------------------------------------------
+
     // section gestion d'un debit
         Route::resource('home/move/debit', 'DebitController');
     //-------------------------------------------------------------

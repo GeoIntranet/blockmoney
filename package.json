@@ -12,6 +12,7 @@
   "devDependencies": {
     "axios": "^0.15.3",
     "bootstrap": "^4.0.0-alpha.6",
+    "clean-webpack-plugin": "^0.1.16",
     "cross-env": "^3.2.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",

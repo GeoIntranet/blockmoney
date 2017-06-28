@@ -2579,7 +2579,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: ['prelevement'],
+    props: ['prelevement', 'account'],
     mounted: function mounted() {
         this.data = this.prelevement;
     }
@@ -2622,16 +2622,103 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            data: {},
-            showFormVirement: false
+            data: '',
+            token: '',
+            account: '',
+            showFormVirement: '',
+            precise: '1er jour',
+            periode: 'Mois',
+            listePeriode: ['Mois', 'Semaine', 'Jour', 'Année'],
+            listePrecise: []
         };
     },
 
-    props: ['virement'],
+    props: ['virement', 'compte'],
+    computed: {
+        checkListe: function checkListe() {
+            if (this.periode === 'Mois') {
+                this.precise = '1er jour';
+                return ['1er jour', '5ème jours', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'dernier jour'];
+            } else if (this.periode === 'Semaine') {
+                this.precise = 'Lundi';
+                return ['Lundi', 'Mardi', 'Mercredi', 'Samedi', 'Dimanche'];
+            } else if (this.periode === 'Jour') {
+                this.precise = '8h';
+                return ['8h', '10h', '12h', '14h', '16h', '18h', '20h'];
+            } else if (this.periode === 'Année') {
+                this.precise = 'Janvier';
+                return ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+            } else {
+                this.precise = '1er jour';
+                return ['1er jour', '5ème jours', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'dernier jour'];;
+            }
+        }
+    },
     methods: {
         showFormAddVirement: function showFormAddVirement() {
             this.showFormVirement = !this.showFormVirement;
@@ -2639,6 +2726,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.data = this.virement;
+        this.token = money.csrfToken;
+        this.account = this.compte;
     }
 });
 
@@ -35386,9 +35475,108 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showFormAddVirement($event)
       }
     }
-  }, [_vm._v(" Virement ")])])]), _vm._v(" "), (_vm.showFormVirement == true) ? _c('div', {
+  }, [_c('b', [_vm._v("VIREMENTS")])])])]), _vm._v(" "), (_vm.showFormVirement == true) ? _c('div', {
     staticClass: "row"
-  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _vm._l((this.data), function(prelevement) {
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_c('form', {
+    attrs: {
+      "action": "/home/recursives",
+      "method": "post"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "account"
+    },
+    domProps: {
+      "value": _vm.account.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.token
+    }
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "form-group row ml-3 align-middle "
+  }, [_c('div', {
+    staticClass: "col-lg-4 col-md-6 col-sm-4 "
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "per"
+    }
+  }, [_vm._v("Periode")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.periode),
+      expression: "periode"
+    }],
+    staticClass: "form-control fontawesome-select",
+    attrs: {
+      "id": "per",
+      "name": "periode"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.periode = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.listePeriode), function(period) {
+    return _c('option', {
+      domProps: {
+        "value": period
+      }
+    }, [_vm._v("\n                                         " + _vm._s(period) + "\n                                ")])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-3 col-sm-4 "
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "datechoice"
+    }
+  }, [_vm._v("Le")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.precise),
+      expression: "precise"
+    }],
+    staticClass: "form-control fontawesome-select",
+    attrs: {
+      "id": "datechoice",
+      "name": "precise"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.precise = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.checkListe), function(precis) {
+    return _c('option', {
+      domProps: {
+        "value": precis
+      }
+    }, [_vm._v("\n                                         " + _vm._s(precis) + "\n                                ")])
+  }))])])]), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('br'), _vm._v(" "), _c('br')]) : _vm._e(), _vm._v(" "), _vm._l((this.data), function(prelevement) {
     return _c('div', {
       staticClass: "row pl-4"
     }, [_c('div', {
@@ -35401,22 +35589,85 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('hr')], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col"
-  }, [_c('form', {
+    staticClass: "form-group row ml-3"
+  }, [_c('div', {
+    staticClass: "col-lg-4 col-md-6 col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
     attrs: {
-      "action": ""
+      "for": "exampleSelect1"
     }
-  }, [_c('select', {
-    staticClass: "fontawesome-select"
+  }, [_vm._v("Catégorie")]), _vm._v(" "), _c('select', {
+    staticClass: "form-control fontawesome-select",
+    attrs: {
+      "id": "exampleSelect1",
+      "name": "categorie"
+    }
   }, [_c('option', {
     attrs: {
       "value": "icon-home"
     }
-  }, [_vm._v(" icon-home")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("      Travail")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "icon-road"
     }
-  }, [_vm._v(" icon-road")])])])])
+  }, [_vm._v("     rente appartement")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "icon-road"
+    }
+  }, [_vm._v("     icon-road")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "icon-road"
+    }
+  }, [_vm._v("     icon-road")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "icon-road"
+    }
+  }, [_vm._v("     icon-road")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-3 col-sm-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "mr-2",
+    attrs: {
+      "for": "titre"
+    }
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control ",
+    attrs: {
+      "type": "text",
+      "id": "titre",
+      "name": "nom"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-3 col-sm-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "mr-2",
+    attrs: {
+      "for": "somme"
+    }
+  }, [_vm._v("Valeur")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "id": "somme",
+      "name": "valeur"
+    }
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12   right "
+  }, [_c('button', {
+    staticClass: "btn btn-primary ",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Ajouté")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

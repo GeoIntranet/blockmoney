@@ -34,8 +34,8 @@
 
                                     @slot('body')
                                         <general_account  :account="{{$account}}" :solde="{{$solde}}" ></general_account>
-                                        <list_virement :virement="{{$recursives->where('action',1)}}"></list_virement>
-                                        <list_prelevement :prelevement="{{$recursives->where('action',0)}}"></list_prelevement>
+                                        <list_virement :compte="{{$account}}" :virement="{{$recursives->where('action',1)}}"></list_virement>
+                                        <list_prelevement :account="{{$account}}" :prelevement="{{$recursives->where('action',0)}}"></list_prelevement>
                                     @endslot
 
                                 @slot('footer') <a href="{{ URL::previous() }}"><b><i class="fa fa-angle-left"> </i> retour </b></a> @endslot

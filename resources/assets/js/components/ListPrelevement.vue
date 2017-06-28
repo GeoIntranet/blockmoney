@@ -24,7 +24,7 @@
                 data:{},
             }
         },
-        props:['prelevement'],
+        props:['prelevement','account'],
         mounted() {
             this.data = this.prelevement;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Recursive;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,9 @@ class RecursivesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        var_dump(Account::find($request->all()['account'])->user_id);
+        var_dump(auth()->id());
+        var_dump($request->all());
     }
 
     /**

@@ -2,37 +2,80 @@
     <div>
         <div class="row">
             <div class="col"><i class="fa fa-arrow-right mr-2"> </i>
-                <a class="text-gray-dark" href="" @click.prevent="showFormAddVirement"> Virement </a>
+                <a class="text-gray-dark" href="" @click.prevent="showFormAddVirement"> <b>VIREMENTS</b> </a>
             </div>
         </div>
         <div class="row" v-if="showFormVirement == true">
             <div class="col">
-                <form action="">
-                    <div class="form-inline ">
+                <form action="/home/recursives" method="post">
+                    <input type="hidden" name="account" :value="account.id">
+                    <input type='hidden' name='_token' :value='token'>
+                    <div class="form-group row ml-3">
 
-                        <label class="mr-4" for="exampleSelect1">Catégorie</label>
-                        <select class="form-control fontawesome-select  mr-3" id="exampleSelect1">
-                            <option value="icon-home">&#xf015; &nbsp; &nbsp;  Travail</option>
-                            <option value="icon-road">&#xf018; &nbsp; &nbsp; rente appartement</option>
-                            <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
-                            <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
-                            <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
-                        </select>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleSelect1">Catégorie</label>
+                                <select class="form-control fontawesome-select" id="exampleSelect1" name="categorie">
+                                    <option value="icon-home">&#xf015; &nbsp; &nbsp;  Travail</option>
+                                    <option value="icon-road">&#xf018; &nbsp; &nbsp; rente appartement</option>
+                                    <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
+                                    <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
+                                    <option value="icon-road">&#xf018; &nbsp; &nbsp; icon-road</option>
+                                </select>
+                            </div>
+                        </div>
 
-                        <label class="mr-4" for="titre">Nom</label>
-                        <input type="text" class="form-control mr-4" id="titre">
+                        <div class="col-lg-4 col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="mr-2" for="titre">Nom</label>
+                                <input type="text" class="form-control " id="titre" name="nom">
+                            </div>
+                        </div>
 
-                        <label class="mr-4" for="somme">Valeur</label>
-                        <input type="number" class="form-control mr-4" id="somme">
-                        <div class="form-group ">
-                            <button type="submit" class="btn btn-primary right ">Ajouté</button>
+                        <div class="col-lg-4 col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="mr-2" for="somme">Valeur</label>
+                                <input type="number" class="form-control" id="somme" name="valeur">
+                            </div>
                         </div>
 
                     </div>
 
+                    <div class="form-group row ml-3 align-middle ">
+
+                        <div class="col-lg-4 col-md-6 col-sm-4 ">
+                            <div class="form-group">
+                                <label class="" for="per">Periode</label>
+                                <select v-model="periode" class="form-control fontawesome-select" id="per" name="periode">
+                                    <option  :value="period" v-for="period in listePeriode">
+                                        &#xf105; &nbsp; &nbsp; {{period}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-3 col-sm-4 ">
+                            <div class="form-group">
+                                <label class="" for="datechoice">Le</label>
+                                <select  v-model="precise" class="form-control fontawesome-select" id="datechoice" name="precise">
+                                    <option   :value="precis" v-for="precis in checkListe">
+                                        &#xf105; &nbsp; &nbsp; {{precis}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12   right ">
+                            <button type="submit" class="btn btn-primary ">Ajouté</button>
+                        </div>
+                    </div>
 
                 </form>
             </div>
+            <br>
+            <br>
+            <br>
         </div>
 
         <div class="row pl-4" v-for="prelevement in this.data">
@@ -50,11 +93,45 @@
     export default {
         data(){
             return{
-                data:{},
-                showFormVirement:false,
+                data:'',
+                token:'',
+                account:'',
+                showFormVirement:'',
+                precise:'1er jour',
+                periode:'Mois',
+                listePeriode:['Mois','Semaine','Jour','Année'],
+                listePrecise:[]
             }
         },
-        props:['virement'],
+        props:['virement','compte'],
+        computed:{
+            checkListe(){
+                if (this.periode === 'Mois') {
+                    this.precise='1er jour';
+                    return ['1er jour', '5ème jours', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'dernier jour'];
+                }
+                else if (this.periode === 'Semaine') {
+                    this.precise='Lundi';
+                    return ['Lundi', 'Mardi', 'Mercredi', 'Samedi', 'Dimanche'];
+                }
+                else if (this.periode === 'Jour') {
+                    this.precise='8h';
+                    return ['8h', '10h', '12h', '14h', '16h', '18h', '20h'];
+                }
+                else if (this.periode === 'Année') {
+                    this.precise='Janvier';
+                    return [
+                        'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
+                        'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre',
+                    ];
+                }
+                else {
+                    this.precise='1er jour';
+                    return ['1er jour', '5ème jours', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'dernier jour'];;
+                }
+            },
+
+        },
         methods:{
             showFormAddVirement(){
                 this.showFormVirement = ! this.showFormVirement;
@@ -62,6 +139,8 @@
         },
         mounted() {
             this.data = this.virement;
+            this.token = money.csrfToken;
+            this.account = this.compte;
         }
     }
 </script>
