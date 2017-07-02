@@ -1646,15 +1646,44 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['details'],
+    props: ['details', 'solde'],
     data: function data() {
         return {
             account: this.details,
             form: new Form({
                 description: this.details.description,
-                nom: this.details.nom
+                nom: this.details.nom,
+                solde: this.solde.value
             }),
             showEditAccount: false,
             showDetailsAccount: false
@@ -1935,6 +1964,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     data: function data() {
         return {
             accountData: this.accounts,
+            soldeData: this.solde,
             accountStatus: false,
             form: new Form({
                 description: '',
@@ -1944,7 +1974,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         };
     },
 
-    props: ['accounts'],
+    props: ['accounts', 'solde'],
     computed: {
         hasAccount: function hasAccount() {
             return this.accountData.length > 0;
@@ -35129,7 +35159,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('account', {
       key: account.id,
       attrs: {
-        "details": account
+        "details": account,
+        "solde": _vm.soldeData[account.id][0]
       }
     })
   }))]) : _vm._e()], 1)
@@ -36009,7 +36040,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('label', {
-    staticClass: "mr-sm-2",
+    staticClass: " mr-sm-2 ",
     attrs: {
       "for": "accountDescription"
     }
@@ -36020,13 +36051,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.form.description),
       expression: "form.description"
     }],
-    staticClass: "form-control mb-2 mr-sm-2 mb-sm-0",
+    staticClass: "form-control mb-2 mr-sm-2 mb-sm-0 ",
     attrs: {
+      "type": "text",
       "name": "description",
       "id": "accountDescription",
-      "type": "text",
       "placeholder": "Crédit agricole ... ",
-      "autofocus": ""
+      "autofocus": "",
+      "required": ""
     },
     domProps: {
       "value": (_vm.form.description)
@@ -36038,7 +36070,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('description')) ? _c('div', {
-    staticClass: "form-control-feedback text-danger",
+    staticClass: "form-control-feedback text-danger right",
     domProps: {
       "textContent": _vm._s(_vm.form.errors.get('description'))
     }
@@ -36054,10 +36086,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.form.nom),
       expression: "form.nom"
     }],
-    staticClass: "form-control mb-2 mr-sm-2 mb-sm-0",
+    staticClass: "form-control mb-2 mr-sm-2 mb-sm-0  ",
     attrs: {
+      "name": "nom",
       "type": "text",
-      "id": "accountValue"
+      "id": "accountValue",
+      "required": ""
     },
     domProps: {
       "value": (_vm.form.nom)
@@ -36069,9 +36103,45 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('nom')) ? _c('div', {
-    staticClass: "form-control-feedback text-danger",
+    staticClass: "form-control-feedback text-danger right",
     domProps: {
       "textContent": _vm._s(_vm.form.errors.get('nom'))
+    }
+  }) : _vm._e(), _vm._v(" "), _c('label', {
+    staticClass: "mr-sm-2",
+    attrs: {
+      "for": "SoldeValue"
+    }
+  }, [_vm._v("Solde")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.solde),
+      expression: "form.solde"
+    }],
+    staticClass: " form-control mb-2 mr-sm-2 mb-sm-0 ",
+    attrs: {
+      "name": "solde",
+      "type": "number",
+      "id": "SoldeValue",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.form.solde)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.solde = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.form.errors.has('solde')) ? _c('div', {
+    staticClass: "form-control-feedback text-danger right",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('solde'))
     }
   }) : _vm._e(), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary mr-2",

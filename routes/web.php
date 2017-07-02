@@ -24,6 +24,7 @@ Route::group(['middleware' =>'auth'], function () {
 
     //gestion calendrier  - POUR PROTO -
         Route::get('configuration/calendar', 'CalendarController@index');
+        Route::get('proto/account/{account}', 'ProtoController@updateSolde');
         Route::get('configuration/calendar/session', 'CalendarController@getSession');
         Route::post('configuration/calendar/set/session', 'CalendarController@setSession');
 

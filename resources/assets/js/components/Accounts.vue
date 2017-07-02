@@ -53,7 +53,7 @@
 
         <div class="row"  v-if="hasAccount">
             <div class="col">
-                <account :details="account" v-for="account in accounts " :key="account.id"></account>
+                <account :details="account" :solde="soldeData[account.id][0]" v-for="account in accounts " :key="account.id"></account>
             </div>
         </div>
 
@@ -68,6 +68,7 @@
         data(){
             return {
                 accountData: this.accounts,
+                soldeData: this.solde,
                 accountStatus :false,
                 form : new Form({
                     description:'',
@@ -76,7 +77,7 @@
                 accountForm: false,
             }
         },
-        props:['accounts'],
+        props:['accounts','solde'],
         computed:{
             hasAccount(){
                 return this.accountData.length > 0;

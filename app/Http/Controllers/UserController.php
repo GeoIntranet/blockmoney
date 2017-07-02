@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Lib\User\UserAccountSetting;
+use App\Soldes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,14 +33,17 @@ class UserController extends Controller
         // check account
         $user = auth()
             ->user()
-            ->with([
-                'account',
-            ])
+            ->with([ 'account'])
             ->first()
         ;
+
+        $solde = Soldes::where('user_id',$id)->orderby('created_at','DESC')->get();
+        $solde = $solde->groupBy('account_id');
+
+
         $status = $this->setting->check();
 
-        return view('user.settings',compact(['user','status']));
+        return view('user.settings',compact(['user','status','solde']));
     }
 
     public function logout()

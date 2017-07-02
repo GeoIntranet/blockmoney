@@ -12,14 +12,42 @@
         <transition name="fade">
             <form class="form-inline" v-if="showEditAccount" @submit.prevent="editAccount">
 
-                <label class="mr-sm-2" for="accountDescription">Nom du compte</label>
-                <input v-model="form.description" name="description" id="accountDescription" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  placeholder="Crédit agricole ... " autofocus>
-                <div class="form-control-feedback text-danger" v-if="form.errors.has('description')" v-text="form.errors.get('description')"></div>
+                <label class=" mr-sm-2 " for="accountDescription">Nom du compte</label>
+                <input
+                        type="text"
+                        v-model="form.description"
+                        name="description"
+                        class="form-control mb-2 mr-sm-2 mb-sm-0 "
+                        id="accountDescription"
+                        placeholder="Crédit agricole ... "
+                        autofocus
+                        required
+                >
+                <div class="form-control-feedback text-danger right" v-if="form.errors.has('description')" v-text="form.errors.get('description')"></div>
 
 
                 <label class="mr-sm-2" for="accountValue">Compte</label>
-                <input v-model="form.nom" type="text" id="accountValue" class="form-control mb-2 mr-sm-2 mb-sm-0">
-                <div class="form-control-feedback text-danger" v-if="form.errors.has('nom')" v-text="form.errors.get('nom')"></div>
+                <input
+                        v-model="form.nom"
+                        name="nom"
+                        type="text"
+                        id="accountValue"
+                        class="form-control mb-2 mr-sm-2 mb-sm-0  "
+                        required
+                >
+                <div class="form-control-feedback text-danger right" v-if="form.errors.has('nom')" v-text="form.errors.get('nom')"></div>
+
+                <label class="mr-sm-2" for="SoldeValue">Solde</label>
+                <input
+                        v-model="form.solde"
+                        name="solde"
+                        type="number"
+                        id="SoldeValue"
+                        class=" form-control mb-2 mr-sm-2 mb-sm-0 "
+                        required
+                >
+                <div class="form-control-feedback text-danger right" v-if="form.errors.has('solde')" v-text="form.errors.get('solde')"></div>
+
                 <button type="submit" class="btn btn-primary mr-2">Edit</button>
 
                 <a class="btn btn-primary" :href="getRef()" role="button"><i class="fa fa-plus-circle mr-1"> </i>Plus d'option</a>
@@ -32,13 +60,14 @@
 
 <script>
     export default {
-        props:['details'],
+        props:['details','solde'],
         data(){
             return{
                 account : this.details,
                 form : new Form({
                     description:this.details.description,
                     nom:this.details.nom,
+                    solde:this.solde.value,
                 }),
                 showEditAccount : false,
                 showDetailsAccount : false,

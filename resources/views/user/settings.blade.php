@@ -65,7 +65,7 @@ User Setting
                                         <p>Les comptes , sont la representation virtuelle de tes comptes banquaire.
                                             Tu pourra réaliser différentes opérations entre ces comptes.
                                         </p>
-                                        <accounts :accounts="{{$user->account}}"></accounts>
+                                        <accounts :accounts="{{$user->account}}" :solde="{{$solde}}"></accounts>
                                 @endslot
 
                                 @slot('footer') Ecrit par <u>Geoffrey Valero</u> dans la section <a href="">configuration</a>@endslot

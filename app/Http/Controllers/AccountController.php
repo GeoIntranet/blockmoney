@@ -69,6 +69,13 @@ class AccountController extends Controller
             'active' => 1,
         ]);
 
+        $solde = Soldes::Create([
+            'user_id' => auth()->id(),
+            'account_id' => $account->id,
+            'value' => 0
+            ]);
+
+
         $status = $this->userSetting->check();
 
 
@@ -128,19 +135,27 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $account)
     {
+
         $this->validate(request(), [
             'nom' => 'required',
             'description' => 'required | min:3 | max:20',
+            'solde' => 'required | min:3 | max:20',
         ]);
 
-        $account = Account::find($id)->update([
+        $solde = Soldes::lastSolde(auth()->id(),$account)->first();
+        $solde->update(['value'=>$request->input('solde')]);
+
+
+        $account = Account::find($account)->update([
             'nom' => $request->input('nom'),
             'description' => $request->input('description'),
         ]);
+
         $status = $this->userSetting->check();
         return [
+            'solde' => $request->input('solde'),
             'message' => 'account edité',
             'userAccountActive' => $status,
         ];
