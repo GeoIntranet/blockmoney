@@ -18,7 +18,6 @@
         },
         props:['original'],
         mounted() {
-            console.log('transaction')
             this.data = this.original;
         }
     }

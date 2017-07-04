@@ -1721,7 +1721,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             var _this2 = this;
 
             axios.delete('/home/account/' + this.account.id).then(function (response) {
-
                 Event.$emit('removeAccount', {
                     id: _this2.account.id,
                     status: response.data.userAccountActive
@@ -1963,6 +1962,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            test: [],
+            valueOfId: 95,
             accountData: this.accounts,
             soldeData: this.solde,
             accountStatus: false,
@@ -1989,11 +1990,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             this.form.submit('post', '/home/account').then(function (data) {
                 _this.accountStatus = data.userAccountActive;
+
                 _this.accountData.push({
                     id: data.id,
                     description: _this.form.description,
                     nom: _this.form.nom
                 });
+
+                _this.soldeData[data.id] = [{ value: 0 }];
                 _this.form.reset();
                 _this.accountForm = false;
             }).catch(function (error) {
@@ -2012,6 +2016,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var _this2 = this;
 
         Event.$on('removeAccount', function (data) {
+            console.log(_this2.accountData);
+            console.log(_this2.getIndex(data.id));
             _this2.accountData.splice(_this2.getIndex(data.id), 1);
         });
 
@@ -2513,9 +2519,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log("this.moment().format()");
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2925,9 +2929,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         }
     },
-    mounted: function mounted() {
-        console.log("navigation bar");
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -3049,7 +3051,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        console.log(this.state);
         this.status = this.state === 0 ? true : false;
         this.showInactive = this.status;
 
@@ -3094,7 +3095,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: ['original'],
     mounted: function mounted() {
-        console.log('transaction');
         this.data = this.original;
     }
 });
@@ -3152,9 +3152,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log("this.moment().format()");
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -35155,7 +35153,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col"
-  }, _vm._l((_vm.accounts), function(account) {
+  }, _vm._l((_vm.accountData), function(account) {
     return _c('account', {
       key: account.id,
       attrs: {

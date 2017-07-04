@@ -48,7 +48,7 @@
             },
         },
         mounted() {
-            console.log(this.state);
+
             this.status = this.state === 0 ? true : false;
             this.showInactive = this.status;
 

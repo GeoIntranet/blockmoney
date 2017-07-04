@@ -53,7 +53,7 @@
 
         <div class="row"  v-if="hasAccount">
             <div class="col">
-                <account :details="account" :solde="soldeData[account.id][0]" v-for="account in accounts " :key="account.id"></account>
+                <account :details="account" :solde="soldeData[account.id][0]" v-for="account in accountData " :key="account.id"></account>
             </div>
         </div>
 
@@ -67,6 +67,8 @@
     export default {
         data(){
             return {
+                test : [],
+                valueOfId : 95,
                 accountData: this.accounts,
                 soldeData: this.solde,
                 accountStatus :false,
@@ -92,16 +94,16 @@
                 this.form.submit('post','/home/account')
                     .then(data => {
                         this.accountStatus = data.userAccountActive;
+
                         this.accountData.push({
                             id : data.id,
                             description : this.form.description,
                             nom : this.form.nom,
                         })
+
+                        this.soldeData[data.id] = [{value: 0}];
                         this.form.reset();
                         this.accountForm = false;
-
-
-
                     })
                     .catch(error => console.log(error));
 
@@ -114,6 +116,8 @@
         },
         mounted() {
             Event.$on('removeAccount',(data)=>{
+               console.log(this.accountData);
+               console.log(this.getIndex(data.id));
                 this.accountData.splice(this.getIndex(data.id),1);
             })
 

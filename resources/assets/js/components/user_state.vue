@@ -7,7 +7,7 @@
 <script>
     export default {
         mounted() {
-            console.log("this.moment().format()")
+
         }
     }
 </script>

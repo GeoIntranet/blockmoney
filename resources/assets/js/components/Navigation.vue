@@ -154,7 +154,6 @@
             }
         },
         mounted() {
-            console.log("navigation bar")
-        }
+                    }
     }
 </script>

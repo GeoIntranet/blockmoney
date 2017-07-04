@@ -57,6 +57,7 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
+        
         $this->validate(request(), [
             'nom' => 'required',
             'description' => 'required | min:3 | max:20',

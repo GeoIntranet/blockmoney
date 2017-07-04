@@ -27,6 +27,11 @@
 </head>
 <body>
 <div class="container-fluid pad-content">
+    <ul>
+        <li style ="list-style-image: url('/image.jpeg')">Devis gratuit envoyé dans les 48-72h suivant la réception du matériel </li>
+        <li>Enlèvement possible par notre transporteur partenaire  </li>
+        <li>Renvoi du matériel réparé dans les 48-72h</li>
+    </ul>
     <div class="row border" id="app">
         <div class="col border">
 
