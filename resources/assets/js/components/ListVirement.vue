@@ -31,14 +31,14 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 gdgfdg">
                             <div class="form-group">
                                 <label class="mr-2" for="titre">Nom</label>
-                                <input type="text" class="form-control " id="titre" name="nom">
+                                <input type="text" class="form-control " id="titre" name="nom" required>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-3 col-sm-3">
                             <div class="form-group">
                                 <label class="mr-2" for="somme">Valeur</label>
-                                <input type="number" class="form-control" id="somme" name="valeur">
+                                <input type="number" class="form-control" id="somme" name="valeur" required>
                             </div>
                         </div>
 

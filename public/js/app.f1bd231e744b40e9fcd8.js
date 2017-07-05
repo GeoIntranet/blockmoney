@@ -35678,7 +35678,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "titre",
-      "name": "nom"
+      "name": "nom",
+      "required": ""
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-4 col-md-3 col-sm-3"
@@ -35694,7 +35695,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "number",
       "id": "somme",
-      "name": "valeur"
+      "name": "valeur",
+      "required": ""
     }
   })])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
