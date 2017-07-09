@@ -39,6 +39,9 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\app::class,
             \Illuminate\Auth\Middleware\Authenticate::class,
         ],
+        'admin' => [
+            \App\Http\Middleware\Admin::class,
+        ],
 
         'api' => [
             'throttle:60,1',

@@ -7,9 +7,9 @@
         </div>
         <div class="row" v-if="showFormVirement == true">
             <div class="col">
-                <form action="/home/recursives" method="post">
+                <form action="/home/recursives" method="post" @submit.prevent="addVirement">
                     <input type="hidden" name="account" :value="account.id">
-                    <input type="hidden" name="account" :value="account.id">
+                    <input type="hidden" name="type" value="1">
 
                     <input type='hidden' name='_token' :value='token'>
 
@@ -31,14 +31,14 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 gdgfdg">
                             <div class="form-group">
                                 <label class="mr-2" for="titre">Nom</label>
-                                <input type="text" class="form-control " id="titre" name="nom" required>
+                                <input v-model="name" type="text" class="form-control " id="titre" name="nom" required>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-3 col-sm-3">
                             <div class="form-group">
                                 <label class="mr-2" for="somme">Valeur</label>
-                                <input type="number" class="form-control" id="somme" name="valeur" required>
+                                <input v-model="value" type="number" class="form-control" id="somme" name="valeur" required>
                             </div>
                         </div>
 
@@ -84,7 +84,8 @@
         <div class="row pl-4" v-for="prelevement in this.data">
             <div class="col -3">
                 <i class="fa fa-home mr-2">
-                </i>{{prelevement.name}}  <b class="text-success">+{{prelevement.value}} e </b>  &ndash;  tous les 28 du mois &ndash;
+                </i>{{prelevement.name}}  <b class="text-success">+{{prelevement.value}} e </b>
+                &ndash;  {{prelevement.readable_date}} &ndash;
             </div>
         </div>
         <hr>
@@ -97,6 +98,9 @@
         data(){
             return{
                 data:'',
+                name:'',
+                value:'',
+                icone:'',
                 token:'',
                 account:'',
                 showFormVirement:'',
@@ -111,7 +115,7 @@
             checkListe(){
                 if (this.periode === 'Mois') {
                     this.precise='1er jour';
-                    return ['1er jour', '5ème jours', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'dernier jour'];
+                    return ['1er jour', '5ème jour', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'Dernier jour'];
                 }
                 else if (this.periode === 'Semaine') {
                     this.precise='Lundi';
@@ -124,8 +128,9 @@
                 else if (this.periode === 'Année') {
                     this.precise='Janvier';
                     return [
-                        'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
-                        'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre',
+                        'Janvier', 'Fevrier', 'Mars', 'Avril',
+                        'Mai', 'Juin', 'Juillet', 'Aout',
+                        'Septembre', 'Octobre', 'Novembre', 'Decembre',
                     ];
                 }
                 else {
@@ -136,6 +141,31 @@
 
         },
         methods:{
+            addVirement(){
+                axios.post('/home/recursives', {
+                    account: this.account.id,
+                    valeur: this.value,
+                    nom: this.name,
+                    type: 1,
+                    icone: 1,
+                    periode: this.periode,
+                    precise: this.precise,
+                })
+                .then(data => {
+
+                    this.data.push( {
+                        name: this.name,
+                        value: this.value,
+                        readable_date: data.data[0].readable_date
+                    });
+
+                    this.name = '';
+                    this.value = '';
+                    this.showFormVirement = false;
+                })
+                .catch(error => console.log(error));
+
+            },
             showFormAddVirement(){
                 this.showFormVirement = ! this.showFormVirement;
             },

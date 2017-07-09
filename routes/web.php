@@ -17,6 +17,7 @@ Auth::routes();
 
 
 Route::group(['middleware' =>'auth'], function () {
+
     // Configuration du budget pour utilisateur donné
         Route::get('user/logout', 'UserController@logout');
         Route::get('configuration/user', 'UserController@index');
@@ -36,6 +37,11 @@ Route::group(['middleware' =>'auth'], function () {
 
 // Il faut absolument que l'utilisateur ai sont profil de crée
 Route::group(['middleware' =>'app'], function () {
+
+    // SECTION ADMINISTRATION
+    Route::group(['middleware' =>'admin'], function () {
+        Route::get('admin/icone', 'CategoriesController@seedIcone');
+    });
 
     // Page d'aceuil du budget de l'utilisateur connecter
         Route::get('/home', 'BoardController@home');
@@ -64,8 +70,6 @@ Route::group(['middleware' =>'app'], function () {
     // section gestion d'un credit
         Route::resource('home/move/credit', 'CreditController');
     //-------------------------------------------------------------
-
-
 
 });
 

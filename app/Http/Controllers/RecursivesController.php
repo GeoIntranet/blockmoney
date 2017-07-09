@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Http\Controllers\Lib\Recursives\recursivesManager;
 use App\Recursive;
 use Illuminate\Http\Request;
 
@@ -31,14 +32,14 @@ class RecursivesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param recursivesManager $manager
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, recursivesManager $manager)
     {
-        var_dump(Account::find($request->all()['account'])->user_id);
-        var_dump(auth()->id());
-        var_dump($request->all());
+       $record = $manager->handle($request->all())->save();
+       return [$record];
     }
 
     /**
@@ -85,4 +86,5 @@ class RecursivesController extends Controller
     {
         //
     }
+
 }

@@ -2605,17 +2605,161 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            data: {}
+            data: [],
+            name: '',
+            value: '',
+            icone: '',
+            token: '',
+            account: '',
+            showFormPrelevement: false,
+            precise: '1er jour',
+            periode: 'Mois',
+            listePeriode: ['Mois', 'Semaine', 'Jour', 'Année'],
+            listePrecise: []
         };
     },
 
-    props: ['prelevement', 'account'],
+    props: ['virement', 'compte'],
+    computed: {
+        checkListe: function checkListe() {
+            if (this.periode === 'Mois') {
+                this.precise = '1er jour';
+                return ['1er jour', '5ème jour', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'Dernier jour'];
+            } else if (this.periode === 'Semaine') {
+                this.precise = 'Lundi';
+                return ['Lundi', 'Mardi', 'Mercredi', 'Samedi', 'Dimanche'];
+            } else if (this.periode === 'Jour') {
+                this.precise = '8h';
+                return ['8h', '10h', '12h', '14h', '16h', '18h', '20h'];
+            } else if (this.periode === 'Année') {
+                this.precise = 'Janvier';
+                return ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+            } else {
+                this.precise = '1er jour';
+                return ['1er jour', '5ème jours', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'dernier jour'];
+                ;
+            }
+        }
+    },
+    methods: {
+        addPrelevement: function addPrelevement() {
+            var _this = this;
+
+            axios.post('/home/recursives', {
+                account: this.account.id,
+                valeur: this.value,
+                nom: this.name,
+                type: 0,
+                icone: 1,
+                periode: this.periode,
+                precise: this.precise
+            }).then(function (data) {
+
+                _this.data.push({
+                    name: _this.name,
+                    value: _this.value,
+                    readable_date: data.data[0].readable_date
+                });
+
+                _this.name = '';
+                _this.value = '';
+                _this.showFormPrelevement = false;
+            }).catch(function (error) {
+                return console.log(error);
+            });
+        },
+        showFormAddPrelevement: function showFormAddPrelevement() {
+            this.showFormPrelevement = !this.showFormPrelevement;
+        }
+    },
     mounted: function mounted() {
-        this.data = this.prelevement;
+        this.data = this.virement;
+        this.token = money.csrfToken;
+        this.account = this.compte;
     }
 });
 
@@ -2720,11 +2864,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             data: '',
+            name: '',
+            value: '',
+            icone: '',
             token: '',
             account: '',
             showFormVirement: '',
@@ -2740,7 +2888,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         checkListe: function checkListe() {
             if (this.periode === 'Mois') {
                 this.precise = '1er jour';
-                return ['1er jour', '5ème jours', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'dernier jour'];
+                return ['1er jour', '5ème jour', '10ème jour', '15ème jour', '20ème jour', '25ème jour', 'Dernier jour'];
             } else if (this.periode === 'Semaine') {
                 this.precise = 'Lundi';
                 return ['Lundi', 'Mardi', 'Mercredi', 'Samedi', 'Dimanche'];
@@ -2757,6 +2905,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        addVirement: function addVirement() {
+            var _this = this;
+
+            axios.post('/home/recursives', {
+                account: this.account.id,
+                valeur: this.value,
+                nom: this.name,
+                type: 1,
+                icone: 1,
+                periode: this.periode,
+                precise: this.precise
+            }).then(function (data) {
+
+                _this.data.push({
+                    name: _this.name,
+                    value: _this.value,
+                    readable_date: data.data[0].readable_date
+                });
+
+                _this.name = '';
+                _this.value = '';
+                _this.showFormVirement = false;
+            }).catch(function (error) {
+                return console.log(error);
+            });
+        },
         showFormAddVirement: function showFormAddVirement() {
             this.showFormVirement = !this.showFormVirement;
         }
@@ -35287,19 +35461,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _vm._l((this.data), function(prelevement) {
-    return _c('div', {
-      staticClass: "row pl-4"
-    }, [_c('div', {
-      staticClass: "col -3"
-    }, [_c('i', {
-      staticClass: "fa fa-home mr-2"
-    }), _vm._v(_vm._s(prelevement.name) + "  "), _c('b', {
-      staticClass: "text-danger"
-    }, [_vm._v("- " + _vm._s(prelevement.value) + " e ")]), _vm._v("\n            –  tous les 28 du mois –\n        ")])])
-  })], 2)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return _c('div', [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col"
@@ -35309,8 +35471,259 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-gray-dark",
     attrs: {
       "href": ""
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.showFormAddPrelevement($event)
+      }
     }
-  }, [_vm._v(" Prelevement ")])])])
+  }, [_c('b', [_vm._v("PRELEVEMENT")])])])]), _vm._v(" "), (_vm.showFormPrelevement == true) ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_c('form', {
+    attrs: {
+      "action": "/home/recursives",
+      "method": "post"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.addPrelevement($event)
+      }
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "account"
+    },
+    domProps: {
+      "value": _vm.account.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "type",
+      "value": "0"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "icone",
+      "value": "1"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.token
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group row ml-3"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-3 col-sm-3 gdgfdg"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "mr-2",
+    attrs: {
+      "for": "titre"
+    }
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.name),
+      expression: "name"
+    }],
+    staticClass: "form-control ",
+    attrs: {
+      "type": "text",
+      "id": "titre",
+      "name": "nom",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.name = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-3 col-sm-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "mr-2",
+    attrs: {
+      "for": "somme"
+    }
+  }, [_vm._v("Valeur")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.value),
+      expression: "value"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "id": "somme",
+      "name": "valeur",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.value)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.value = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group row ml-3 align-middle "
+  }, [_c('div', {
+    staticClass: "col-lg-4 col-md-6 col-sm-4 "
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "per"
+    }
+  }, [_vm._v("Periode")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.periode),
+      expression: "periode"
+    }],
+    staticClass: "form-control fontawesome-select",
+    attrs: {
+      "id": "per",
+      "name": "periode"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.periode = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.listePeriode), function(period) {
+    return _c('option', {
+      domProps: {
+        "value": period
+      }
+    }, [_vm._v("\n                                         " + _vm._s(period) + "\n                                ")])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-3 col-sm-4 "
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "datechoice"
+    }
+  }, [_vm._v("Le")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.precise),
+      expression: "precise"
+    }],
+    staticClass: "form-control fontawesome-select",
+    attrs: {
+      "id": "datechoice",
+      "name": "precise"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.precise = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.checkListe), function(precis) {
+    return _c('option', {
+      domProps: {
+        "value": precis
+      }
+    }, [_vm._v("\n                                         " + _vm._s(precis) + "\n                                ")])
+  }))])])]), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('br'), _vm._v(" "), _c('br')]) : _vm._e(), _vm._v(" "), _vm._l((this.data), function(prelevement) {
+    return _c('div', {
+      staticClass: "row pl-4"
+    }, [_c('div', {
+      staticClass: "col -3"
+    }, [_c('i', {
+      staticClass: "fa fa-home mr-2"
+    }), _vm._v(_vm._s(prelevement.name) + "  "), _c('b', {
+      staticClass: "text-danger"
+    }, [_vm._v("-" + _vm._s(prelevement.value) + " e ")]), _vm._v("\n            – " + _vm._s(prelevement.readable_date) + " –\n        ")])])
+  }), _vm._v(" "), _c('hr')], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-lg-4 col-md-6 col-sm-6 "
+  }, [_c('div', {
+    staticClass: "form-group fd fdrt"
+  }, [_c('label', {
+    attrs: {
+      "for": "exampleSelect1"
+    }
+  }, [_vm._v("Catégorie")]), _vm._v(" "), _c('select', {
+    staticClass: "form-control fontawesome-select",
+    attrs: {
+      "id": "exampleSelect1",
+      "name": "categorie"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "icon-home"
+    }
+  }, [_vm._v("     Travail")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "icon-star"
+    }
+  }, [_vm._v("     rente appartement")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "icon-plus"
+    }
+  }, [_vm._v("     icon-road")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "icon-road"
+    }
+  }, [_vm._v("     icon-road")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "icon-road"
+    }
+  }, [_vm._v("     icon-road")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-sm-12   right "
+  }, [_c('button', {
+    staticClass: "btn btn-primary ",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Ajouté")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -35515,6 +35928,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "action": "/home/recursives",
       "method": "post"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.addVirement($event)
+      }
     }
   }, [_c('input', {
     attrs: {
@@ -35527,10 +35946,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('input', {
     attrs: {
       "type": "hidden",
-      "name": "account"
-    },
-    domProps: {
-      "value": _vm.account.id
+      "name": "type",
+      "value": "1"
     }
   }), _vm._v(" "), _c('input', {
     attrs: {
@@ -35540,7 +35957,76 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.token
     }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group row ml-3"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-3 col-sm-3 gdgfdg"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "mr-2",
+    attrs: {
+      "for": "titre"
+    }
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.name),
+      expression: "name"
+    }],
+    staticClass: "form-control ",
+    attrs: {
+      "type": "text",
+      "id": "titre",
+      "name": "nom",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.name = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-3 col-sm-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "mr-2",
+    attrs: {
+      "for": "somme"
+    }
+  }, [_vm._v("Valeur")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.value),
+      expression: "value"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "id": "somme",
+      "name": "valeur",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.value)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.value = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "form-group row ml-3 align-middle "
   }, [_c('div', {
     staticClass: "col-lg-4 col-md-6 col-sm-4 "
@@ -35625,12 +36111,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "fa fa-home mr-2"
     }), _vm._v(_vm._s(prelevement.name) + "  "), _c('b', {
       staticClass: "text-success"
-    }, [_vm._v("+" + _vm._s(prelevement.value) + " e ")]), _vm._v("  –  tous les 28 du mois –\n        ")])])
+    }, [_vm._v("+" + _vm._s(prelevement.value) + " e ")]), _vm._v("\n            –  " + _vm._s(prelevement.readable_date) + " –\n        ")])])
   }), _vm._v(" "), _c('hr')], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "form-group row ml-3"
-  }, [_c('div', {
     staticClass: "col-lg-4 col-md-6 col-sm-6 "
   }, [_c('div', {
     staticClass: "form-group fd fdrt"
@@ -35664,41 +36148,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "icon-road"
     }
-  }, [_vm._v("     icon-road")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-4 col-md-3 col-sm-3 gdgfdg"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "mr-2",
-    attrs: {
-      "for": "titre"
-    }
-  }, [_vm._v("Nom")]), _vm._v(" "), _c('input', {
-    staticClass: "form-control ",
-    attrs: {
-      "type": "text",
-      "id": "titre",
-      "name": "nom",
-      "required": ""
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-4 col-md-3 col-sm-3"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "mr-2",
-    attrs: {
-      "for": "somme"
-    }
-  }, [_vm._v("Valeur")]), _vm._v(" "), _c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "number",
-      "id": "somme",
-      "name": "valeur",
-      "required": ""
-    }
-  })])])])
+  }, [_vm._v("     icon-road")])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
