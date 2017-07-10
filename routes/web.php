@@ -41,6 +41,8 @@ Route::group(['middleware' =>'app'], function () {
     // SECTION ADMINISTRATION
     Route::group(['middleware' =>'admin'], function () {
         Route::get('admin/icone', 'CategoriesController@seedIcone');
+        Route::get('admin/transactions/date', 'TransactionsController@getDate');
+
     });
 
     // Page d'aceuil du budget de l'utilisateur connecter
