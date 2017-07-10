@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Lib\Recursives\jobRecursivesManager;
 use App\Recursive;
 use App\Transaction;
 use Carbon\Carbon;
@@ -13,68 +14,29 @@ class TransactionsController extends Controller
      * @var \App\Recursive
      */
     private $recursive;
+    /**
+     * @var jobRecursivesManager
+     */
+    private $manager;
 
     /**
      * TransactionsController constructor.
      */
-    public function __construct(Recursive $recursive)
+    public function __construct(Recursive $recursive, jobRecursivesManager $manager)
     {
-
         $this->recursive = $recursive;
+        $this->manager = $manager;
     }
+
 
     public function getDate()
     {
-        $date = Carbon::now();
-        $firstOfYear = $date->copy()->firstOfYear();
-        $firstOfMonth = $date->copy()->firstOfMonth();
-        $isFirst = $date->copy()->format('Y-m-d') == $firstOfMonth->copy()->format('Y-m-d') ;
+        $this->manager->initForHandle();
 
-        $dayOfWeek = $date->dayOfWeek;
-        $monthOfYear = $date->month;
-
-        $weekState = [
-            1 => $date->isMonday(),
-            2 => $date->isThursday(),
-            3 => $date->isWednesday(),
-            4 => $date->isTuesday(),
-            5 => $date->isFriday(),
-            6 => $date->isSaturday(),
-            7 => $date->isSunday(),
-        ];
-
-        $monthState = [
-            1 => $date->copy()->format('Y-m-d') == $firstOfMonth->copy()->format('Y-m-d'),
-            2 => $date->copy()->format('Y-m-d') == $firstOfMonth->copy()->addDay(4)->format('Y-m-d'),
-            3 => $date->copy()->format('Y-m-d') == $firstOfMonth->copy()->addDay(9)->format('Y-m-d'),
-            4 => $date->copy()->format('Y-m-d') == $firstOfMonth->copy()->addDay(14)->format('Y-m-d'),
-            5 => $date->copy()->format('Y-m-d') == $firstOfMonth->copy()->addDay(19)->format('Y-m-d'),
-            6 => $date->copy()->format('Y-m-d') == $firstOfMonth->copy()->addDay(24)->format('Y-m-d'),
-            7 => $date->copy()->format('Y-m-d') == $date->copy()->lastOfMonth()->format('Y-m-d'),
-        ];
-
-
-        $firstYear_temp = $firstOfYear->copy();
-        $yearState=[];
-        for($i=1 ; $i <=12 ; $i++ )
-        {
-            $yearState[$i] = ( $i == 1 )
-                ?
-                $date->copy()->format('Y-m-d') == $firstYear_temp->format('Y-m-d')
-                :
-                $date->copy()->format('Y-m-d') == $firstYear_temp->addMonth(1)->format('Y-m-d');
-        }
-
-        //var_dump($firstOfYear);
-        //var_dump($date);
-        //var_dump($firstOfMonth);
-        //var_dump($isFirst);
-        //var_dump($dayOfWeek);
-        //var_dump($monthOfYear);
-
-        var_dump($monthState);
-        var_dump($weekState);
-        var_dump($yearState);
+        $this->manager
+            ->searchTransactions()
+            ->makeTransaction()
+        ;
 
         return view('home');
 

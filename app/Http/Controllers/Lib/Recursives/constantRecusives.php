@@ -2,6 +2,48 @@
 
 class constantRecusives
 {
+    /**
+     * ordre dans laquelle on vas trier les transaction
+     * a 8h les journaliere
+     * a 9h les hebdomadaire
+     * 10h mensuel
+     * 11h annuel
+     * @var array
+     */
+    public $constantDisptach =
+        [
+            8 => 'constantDay',
+            9 => 'constantWeek',
+            10 => 'constantMonth',
+            11 => 'constantYear',
+        ];
+
+    /**
+     * 
+     * @var array
+     */
+    public $constantDayNumerique =
+        [
+            8 => 1,
+            10 => 2,
+            12 => 3,
+            14 => 4,
+            16 => 5,
+            18 => 6,
+            20 => 7,
+        ];
+
+    public $constantMonthNumerique =
+        [
+            1 => 1,
+            5 => 2,
+            10 => 3,
+            15 => 4,
+            20 => 5,
+            25 => 6,
+            999 => 7,
+        ];
+
     public $constantPeriode =
         [
             'Jour' => 1,
