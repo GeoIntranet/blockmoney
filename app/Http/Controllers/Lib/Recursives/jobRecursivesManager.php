@@ -11,7 +11,9 @@ class jobRecursivesManager extends constantRecusives
     public $hour;
     public $dayOfWeek;
     public $monthOfYear;
+    public $searchWhat;
 
+    public $isPair;
 
     /**
      * 8h / Journalier
@@ -57,6 +59,10 @@ class jobRecursivesManager extends constantRecusives
     private function initDate()
     {
         $this->hour = $this->now->hour;
+        $this->isPair = $this->isPair($this->hour);
+
+        $this->searchWhat();
+
 
         $this->firstDayOfYear = $this->now->copy()->firstOfYear();
         $this->firstDayOfMonth = $this->now->copy()->firstOfMonth();
@@ -64,6 +70,14 @@ class jobRecursivesManager extends constantRecusives
 
         $this->dayOfWeek = $this->now->dayOfWeek;
         $this->monthOfYear = $this->now->month;
+
+    }
+
+    public function isPair($hour)
+    {
+        $state = $this->hour%2 ;
+
+        return $state == 0 ? TRUE : FALSE;
     }
 
     /**
@@ -117,5 +131,24 @@ class jobRecursivesManager extends constantRecusives
         return $yearState;
     }
 
+    private function searchWhat()
+    {
 
+
+        if ($this->isPair) {
+            $this->searchWhat[] = 'initDays';
+        }
+
+        if ($this->hour == 9) {
+            $this->searchWhat[] = 'initWeeks';
+        }
+
+        if ($this->hour == 10) {
+            $this->searchWhat[] = 'initMonth';
+        }
+
+        if ($this->hour == 11) {
+            $this->searchWhat[] = 'initYears';
+        }
+    }
 }
