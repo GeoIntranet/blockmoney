@@ -6,6 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
+    <style type="text/css">@font-face {
+            font-family:"googleB";
+            src: url("http://block.money/fonts/Roboto-Bold-webfont.eot"),
+            url("http://block.money/fonts/Roboto-Bold-webfont.woff") format("woff"),
+            url("http://block.money/fonts/Roboto-Bold-webfont.svg#filename") format("svg");
+        }
+    </style>
+
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{env('icone')}}"  type="image/x-icon" />
     <script>

@@ -50,7 +50,7 @@ User Setting
                             @component('component.card.card')
                                 @slot('header')
                                     <div class="row">
-                                        <div class="col"><i class="fa fa-send mr-2"> </i> Bienvenue <b>{{auth()->user()->name}}</b> !  </div>
+                                        <div class="col roboto"><i class="fa fa-send mr-2"> </i> Bienvenue <b>{{auth()->user()->name}}</b> !  </div>
                                         <div class="col-1 right">
                                             <user_state></user_state>
                                         </div>
