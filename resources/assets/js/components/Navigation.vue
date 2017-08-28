@@ -18,7 +18,6 @@
             </ul>
             <div class="col-4 ">
                 <div class="row ">
-
                     <!--Zone de recherche-->
                     <form :class="isActive" >
                         <input
@@ -70,9 +69,9 @@
                         </div>
                     </div>
                     <!--FIN Zone autocomplétion-->
-
                 </div>
             </div>
+
         </div>
     </nav>
 
